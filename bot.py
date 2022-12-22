@@ -5,18 +5,23 @@ from googletrans import Translator, LANGCODES
 import random
 
 
-app = Flask(__name__)
-
-
 def gtranslate(tr_text):
     translator = Translator(service_urls=['translate.google.co.in'])
     d = LANGCODES
     l = list(d.items())
-    r = random.choice(l)
-    lang, lang_cd = r[0], r[1]
+    ra = random.choice(l)
+    lang, lang_cd = ra[0], ra[1]
     t_text = translator.translate(tr_text, dest=lang_cd).text
     msg = f"_{lang.title()}_\n{t_text}"
     return msg
+
+
+app = Flask(__name__)
+
+
+@app.route('/')
+def hello_world():
+    return 'Hello World'
 
 
 @app.route('/bot', methods=['POST'])
@@ -35,7 +40,7 @@ def bot():
             quote = f'{data["content"]} ({data["author"]})'
         else:
             quote = 'I could not retrieve a quote at this time, sorry.'
-        # msg.body(quote)``
+        # msg.body(quote)
         msg = resp.message(quote)
         responded = True
 

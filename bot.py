@@ -35,7 +35,7 @@ def bot():
             quote = f'{data["content"]} ({data["author"]})'
         else:
             quote = 'I could not retrieve a quote at this time, sorry.'
-        # msg.body(quote)
+        # msg.body(quote)``
         msg = resp.message(quote)
         responded = True
 
